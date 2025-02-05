@@ -28,7 +28,8 @@ create_env_file() {
     echo "$SECRETS" | jq -c -r 'to_entries | .[] | "\(.key)=\(.value)"' >> "$OUTPUT_NAME"
   fi
 
-    echo "$OUTPUT_NAME file has been created successfully!"
+  echo "$OUTPUT_NAME file has been created successfully!"
+  cat "$OUTPUT_NAME"
 }
 
 create_env_file
