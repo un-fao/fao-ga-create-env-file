@@ -1,5 +1,5 @@
 name: 'create-env-file'
-description: 'Create a .env file from a json extraction of github environment secrets and variables'
+description: 'Create a .env file from a json extraction of github environment variables'
 
 branding:
   icon: 'code'
@@ -8,10 +8,7 @@ branding:
 inputs:
   variables:
     description: 'Github variables in json format'
-    required: false
-  secrets:
-    description: 'Github secrets in json format'
-    required: false
+    required: true
   output-name:
     description: 'Name of the newly created env file'
     required: false
@@ -23,10 +20,7 @@ runs:
   - name: 'create-env-file'
     env:
       VARIABLES: '${{ inputs.variables }}'
-      SECRETS: '${{ inputs.secrets }}'
       OUTPUT_NAME: '${{ inputs.output-name }}'
     shell: bash
     run: |
       $GITHUB_ACTION_PATH/scripts/create_env_file.sh
-
-#$GITHUB_ACTION_PATH/scripts/validate_inputs.sh
