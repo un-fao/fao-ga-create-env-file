@@ -16,7 +16,8 @@ inputs:
     default: ${{ toJson(secrets) }}
   output-name:
     description: 'Name of the newly created env file'
-    required: true
+    required: false
+    default: .env
 
 runs:
   using: 'composite'
