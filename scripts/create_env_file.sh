@@ -20,13 +20,15 @@ create_env_file() {
   if [[ -n $VARIABLES ]]; then 
     # Extract variables and write them to .env
     echo "$VARIABLES"
-    echo "$VARIABLES" | jq -r 'to_entries | .[] | "\(.key)=\(.value)"' >> "$OUTPUT_ENV"
+    JSON_STRING='{"PROJECT_ID":"project_id","SERVICE_ACCOUNT":"serv"}'
+    echo "$JSON_STRING" | jq -r 'to_entries | .[] | "\(.key)=\(.value)"' >> "$OUTPUT_ENV"
   fi
 
   if [[ -n $SECRETS ]]; then 
     # Extract secrets and write them to .env
     echo "$SECRETS"
-    echo "$SECRETS" | jq -r 'to_entries | .[] | "\(.key)=\(.value)"' >> "$OUTPUT_ENV"
+    JSON_STRING='{"PROJECT_ID":"project_id","SERVICE_ACCOUNT":"serv"}'
+    echo "$JSON_STRING" | jq -r 'to_entries | .[] | "\(.key)=\(.value)"' >> "$OUTPUT_ENV"
   fi
 
     echo "$OUTPUT_NAME file has been created successfully!"
