@@ -9,11 +9,9 @@ inputs:
   variables:
     description: 'Github variables in json format'
     required: false
-    default: ${{ toJson(vars) }}
   secrets:
     description: 'Github secrets in json format'
     required: false
-    default: ${{ toJson(secrets) }}
   output-name:
     description: 'Name of the newly created env file'
     required: false
