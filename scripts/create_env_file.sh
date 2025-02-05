@@ -14,7 +14,8 @@ trap 'fatal "$LINENO" "$BASH_COMMAND"' ERR
 create_env_file() {
 
   # Create or overwrite .env file
-  echo "# Environment variables and secrets" > "$OUTPUT_NAME"
+  touch "$OUTPUT_NAME"
+  ls -lart
 
   if [[ -n $VARIABLES ]]; then 
     # Extract variables and write them to .env
