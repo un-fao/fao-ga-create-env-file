@@ -18,11 +18,13 @@ create_env_file() {
 
   if [[ -n $VARIABLES ]]; then 
     # Extract variables and write them to .env
+    echo "$VARIABLES"
     echo "$VARIABLES" | jq -r 'to_entries | .[] | "\(.key)=\(.value)"' >> "$OUTPUT_ENV"
   fi
 
   if [[ -n $SECRETS ]]; then 
     # Extract secrets and write them to .env
+    echo "$SECRETS"
     echo "$SECRETS" | jq -r 'to_entries | .[] | "\(.key)=\(.value)"' >> "$OUTPUT_ENV"
   fi
 
