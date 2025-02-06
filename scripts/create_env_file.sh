@@ -18,7 +18,7 @@ create_env_file() {
 
   if [[ -n $VARIABLES ]]; then 
     # Extract variables and write them to .env
-    echo "$VARIABLES" | jq -c -r 'to_entries | .[] | "\(.key)=\"\(.value)\""' >> "$OUTPUT_NAME"
+    echo "$VARIABLES" | jq -c -r 'to_entries | .[] | if (.value | test("\\s")) then "\(.key)=\"\(.value)\"" else "\(.key)=\(.value)" end' >> "$OUTPUT_NAME"
   fi
 
   echo "$OUTPUT_NAME file has been created successfully!"
