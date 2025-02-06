@@ -16,16 +16,12 @@ create_env_file() {
   touch "$OUTPUT_NAME"
 
   if [[ -n $VARIABLES ]]; then 
-    # Extract variables and write them to .env with conditional formatting
-    echo "$VARIABLES" | jq -c -r 'to_entries | .[] | 
-      if (.value | test("^\".*\"$")) then 
-        "\(.key)=\(.value | gsub("\""; "\\\""))"
-      elif (.value | test("\\s") and (.value | test("^[^\"]+.*[^\"]+$"))) then 
-        "\(.key)=\"\(.value)\""
-      else 
-        "\(.key)=\(.value)"
-      end' >> "$OUTPUT_NAME"
+    # Extract variables and write them to .env with conditional quotes
+    echo "$VARIABLES" | jq -c -r 'to_entries | .[] | if (.value | test("\\s")) then "\(.key)=\"\(.value)\"" else "\(.key)=\(.value)" end' >> "$OUTPUT_NAME"
   fi
+
+  # Add backslash before each quote or double quote
+  sed -i 's/\"/\\\"/g' "$OUTPUT_NAME"
 
   echo "$OUTPUT_NAME file has been created successfully!"
 }
