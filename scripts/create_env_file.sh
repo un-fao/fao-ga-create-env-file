@@ -21,6 +21,8 @@ create_env_file() {
     echo "$VARIABLES" | jq -c -r 'to_entries | .[] | "\(.key)=\(.value)"' >> "$OUTPUT_NAME"
   fi
 
+  cat $OUTPUT_NAME
+
   # Add backslash before each quote or double quote
   sed -i 's/\"/\\\"/g' "$OUTPUT_NAME"
 
