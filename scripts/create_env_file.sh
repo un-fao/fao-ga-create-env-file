@@ -15,7 +15,7 @@ create_env_file() {
   # Create or overwrite .env file
   touch "$OUTPUT_NAME"
 
-  if [ -z ${VARIABLES+x} ]; then
+  if [ -z ${VARIABLES+x} ] || [ "$VARIABLES" = "null" ]; then
     echo "$OUTPUT_NAME file has been created but no variables where found."
     return 1
   fi
