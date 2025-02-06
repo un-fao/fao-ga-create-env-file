@@ -18,9 +18,9 @@ create_env_file() {
   if [[ -n $VARIABLES ]]; then 
     # Extract variables and write them to .env with conditional formatting
     echo "$VARIABLES" | jq -c -r 'to_entries | .[] | 
-      if (.value | test("^\\".*\\"$") ) then 
+      if (.value | test("^\".*\"$")) then 
         "\(.key)=\(.value | gsub("\""; "\\\""))"
-      elif (.value | test("\\s") and (.value | test("^[^\"].*[^\"]$"))) then 
+      elif (.value | test("\\s") and (.value | test("^[^\"]+.*[^\"]+$"))) then 
         "\(.key)=\"\(.value)\""
       else 
         "\(.key)=\(.value)"
