@@ -17,6 +17,7 @@ create_env_file() {
 
   if [ -z ${VARIABLES+x} ]; then
     echo "$OUTPUT_NAME file has been created but no variables where found."
+    return 1
   fi
 
   # Map variables to .env file, add delimenters in case of multiple words value
