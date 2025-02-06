@@ -20,12 +20,12 @@ create_env_file() {
     return 1
   fi
 
-  # Map variables to .env file, add delimenters in case of multiple words value
+  # Map variables to .env file, add delimenters in case of space separated values
   echo "$VARIABLES" | jq -c -r 'to_entries | .[] | if (.value | test("\\s")) then "\(.key)=¦\(.value)¦" else "\(.key)=\(.value)" end' >> "$OUTPUT_NAME"
   # Add backslash before double quotes and quotes
   sed -i 's/\"/\\\"/g' "$OUTPUT_NAME"
   sed -i "s/'/\\\'/g" "$OUTPUT_NAME"
-  # Replace ¦ delimeter
+  # Replace delimeters with double quotes
   sed -i 's/¦/\"/g' "$OUTPUT_NAME"
 
   echo "$OUTPUT_NAME file has been created successfully!"
