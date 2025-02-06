@@ -14,7 +14,7 @@ trap 'fatal "$LINENO" "$BASH_COMMAND"' ERR
 create_env_file() {
   echo $VARIABLES
   # Escape quotes in VARIABLES
-  VARIABLES=$(echo "$VARIABLES" | sed 's/\\"/\\\\"/g')
+  VARIABLES=$(echo "$VARIABLES" | sed 's/\\"/\\\\\"/g')
   echo $VARIABLES
 
   # Create or overwrite .env file
