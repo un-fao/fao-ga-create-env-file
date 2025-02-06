@@ -17,7 +17,7 @@ create_env_file() {
 
   if [ -z ${VARIABLES+x} ] || [ "$VARIABLES" = "null" ]; then
     echo "$OUTPUT_NAME file has been created but no variables where found."
-    return 1
+    return
   fi
 
   # Map variables to .env file, add delimenters in case of space separated values
