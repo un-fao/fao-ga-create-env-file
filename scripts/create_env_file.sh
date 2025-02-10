@@ -16,18 +16,19 @@ create_env_file() {
   # Check if the file exists
   if [ -e "OUTPUT_NAME" ]; then
     echo "[FAILED]"
-    echo "File '$OUTPUT_NAME' already exists."
+    echo "File '$FILE_NAME' already exists."
   else
     # Create the file
-    touch "$OUTPUT_NAME"
-    echo "File '$OUTPUT_NAME' created successfully."
+    touch "$FILE_NAME"
+    echo "File '$FILE_NAME' created successfully."
   fi
 }
 
 add_env_variables() {
   local ENV_VARIABLES = "$1"
   local NAME = "$2"
-  local FILE_NAME = "$3"
+  local OUTPUT_FILE = "$3"
+  local TMP_FILE = "tmp.env"
 
   if [ -z ${ENV_VARIABLES+x} ] || [ "$ENV_VARIABLES" = "null" ]; then
     echo "No $NAME where found."
@@ -35,13 +36,14 @@ add_env_variables() {
   fi
 
   # Map variables to .env file, add delimenters in case of space separated values
-  echo "$ENV_VARIABLES" | jq -c -r 'to_entries | .[] | if (.value | test("\\s")) then "\(.key)=¦\(.value)¦" else "\(.key)=\(.value)" end' >> "$FILE_NAME"
+  echo "$ENV_VARIABLES" | jq -c -r 'to_entries | .[] | if (.value | test("\\s")) then "\(.key)=¦\(.value)¦" else "\(.key)=\(.value)" end' >> "$TMP_FILE"
   # Add backslash before double quotes and quotes
-  sed -i 's/\"/\\\"/g' "$FILE_NAME"
-  sed -i "s/'/\\\'/g" "$FILE_NAME"
+  sed -i 's/\"/\\\"/g' "$TMP_FILE"
+  sed -i "s/'/\\\'/g" "$TMP_FILE"
   # Replace delimeters with double quotes
-  sed -i 's/¦/\"/g' "$FILE_NAME"
+  sed -i 's/¦/\"/g' "$TMP_FILE"
 
+  cat "$TMP_FILE" >> "$OUTPUT_FILE"
   echo "$NAME added to $FILE_NAME!"
 }
 
