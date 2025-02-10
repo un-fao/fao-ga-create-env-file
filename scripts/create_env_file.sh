@@ -45,7 +45,7 @@ add_env_variables() {
 
   cat "$TMP_FILE" >> "$OUTPUT_FILE"
   rm "$TMP_FILE"
-  echo "$NAME added to $FILE_NAME!"
+  echo "$NAME added to $OUTPUT_FILE!"
 }
 
 create_env_file "$OUTPUT_NAME"
