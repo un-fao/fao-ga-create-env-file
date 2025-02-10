@@ -12,7 +12,7 @@ fatal() {
 trap 'fatal "$LINENO" "$BASH_COMMAND"' ERR
 
 create_env_file() {
-  local FILE_NAME = "$1"
+  local FILE_NAME="$1"
   # Check if the file exists
   if [ -e "OUTPUT_NAME" ]; then
     echo "[FAILED]"
@@ -25,10 +25,10 @@ create_env_file() {
 }
 
 add_env_variables() {
-  local ENV_VARIABLES = "$1"
-  local NAME = "$2"
-  local OUTPUT_FILE = "$3"
-  local TMP_FILE = "tmp.env"
+  local ENV_VARIABLES="$1"
+  local NAME="$2"
+  local OUTPUT_FILE="$3"
+  local TMP_FILE="tmp.env"
 
   if [ -z ${ENV_VARIABLES+x} ] || [ "$ENV_VARIABLES" = "null" ]; then
     echo "No $NAME where found."
