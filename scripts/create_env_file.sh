@@ -48,5 +48,5 @@ add_env_variables() {
 }
 
 create_env_file "$OUTPUT_NAME"
-add_variables "$VARIABLES" "variables" "$OUTPUT_NAME"
-add_variables "$SECRETS" "secrets" "$OUTPUT_NAME"
+add_env_variables "$VARIABLES" "variables" "$OUTPUT_NAME"
+add_env_variables "$SECRETS" "secrets" "$OUTPUT_NAME"
