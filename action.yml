@@ -8,10 +8,10 @@ branding:
 inputs:
   variables:
     description: 'Github variables in json format'
-    required: true
+    required: false
   secrets:
     description: 'Github secrets in json format'
-    required: true
+    required: false
   output-name:
     description: 'Name of the newly created env file'
     required: false
