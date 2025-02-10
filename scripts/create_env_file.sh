@@ -44,9 +44,10 @@ add_env_variables() {
   sed -i 's/¦/\"/g' "$TMP_FILE"
 
   cat "$TMP_FILE" >> "$OUTPUT_FILE"
+  rm "$TMP_FILE"
   echo "$NAME added to $FILE_NAME!"
 }
 
 create_env_file "$OUTPUT_NAME"
-add_env_variables "$VARIABLES" "variables" "$OUTPUT_NAME"
-add_env_variables "$SECRETS" "secrets" "$OUTPUT_NAME"
+add_env_variables "$VARIABLES" "Variables" "$OUTPUT_NAME"
+add_env_variables "$SECRETS" "Secrets" "$OUTPUT_NAME"
