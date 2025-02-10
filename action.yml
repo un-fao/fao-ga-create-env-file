@@ -9,6 +9,9 @@ inputs:
   variables:
     description: 'Github variables in json format'
     required: true
+  secrets:
+    description: 'Github secrets in json format'
+    required: true
   output-name:
     description: 'Name of the newly created env file'
     required: false
@@ -20,6 +23,7 @@ runs:
   - name: 'create-env-file'
     env:
       VARIABLES: '${{ inputs.variables }}'
+      SECRETS: '${{ inputs.secrets }}'
       OUTPUT_NAME: '${{ inputs.output-name }}'
     shell: bash
     run: |
