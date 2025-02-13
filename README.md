@@ -2,12 +2,12 @@
 
 ## Overview
 
-`create-env-file` is a GitHub Actions composite action that generates a `.env` file from a JSON extraction of GitHub environment variables.
+`create-env-file` is a GitHub Actions composite action that generates a `.env` file from a JSON extraction of GitHub environment variables and secrets.
 
 ## Features
 
-- Converts GitHub environment variables (provided in JSON format) into a `.env` file.
-- Handles spaces within variable values by encapsulating them in double quotes.
+- Converts GitHub environment variables and secrets (provided in JSON format) into a `.env` file.
+- Handles spaces within variable and secrets values by encapsulating them in double quotes.
 - Escapes special characters (quotes and double quotes) to ensure correct formatting.
 
 ## Usage
@@ -19,6 +19,7 @@ To use this action in your workflow, add the following step:
   uses: un-fao/create-env-file@main
   with:
     variables: ${{ toJson(vars) }}
+    secrets: ${{ toJson(secrets) }}
     output-name: '.env'  # Optional, defaults to '.env'
 ```
 
@@ -26,7 +27,8 @@ To use this action in your workflow, add the following step:
 
 | Name          | Description                                 | Required | Default |
 | ------------- | ------------------------------------------- | -------- | ------- |
-| `variables`   | GitHub environment variables in JSON format | ✅        | N/A     |
+| `variables`   | GitHub environment variables in JSON format | ❌        | N/A     |
+| `secrets`     | GitHub environment secrets in JSON format   | ❌        | N/A     |
 | `output-name` | Name of the output .env file                | ❌        | `.env`  |
 
 ## Example Output
@@ -48,16 +50,3 @@ VAR_1=variable_1
 VAR_2=\"variable_2\"
 VAR_3="variable number 3"
 ```
-
-## How It Works
-
-The action executes a Bash script (`create_env_file.sh`) that:
-
-- Creates or overwrites the `.env` file.
-- Parses the provided JSON input using `jq`.
-- Properly formats variables, enclosing values in double quotes if they contain spaces.
-- Escapes special characters (`"` and `'`) to prevent syntax issues.
-- Saves the final output to the specified `.env` file.
-
-##
-
