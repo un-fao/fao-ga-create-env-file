@@ -37,7 +37,7 @@ add_env_variables() {
 
   # Map variables to .env file, add delimenters in case of space separated values
   echo "$ENV_VARIABLES" | jq -c -r 'to_entries | .[] | "export \(.key)=\"\(.value)\"" ' >> "$TMP_FILE"
-  sed -i 's/""/\"\"/g' "$TMP_FILE"
+  sed -i 's/""/\"\\"/g' "$TMP_FILE"
   # echo "$ENV_VARIABLES" | jq -c -r 'to_entries | .[] | if (.value | test("\\s")) then "\(.key)=¦\(.value)¦" else "\(.key)=\(.value)" end' >> "$TMP_FILE"
   # echo "-----------------------------"
   # cat "$TMP_FILE"
