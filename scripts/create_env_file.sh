@@ -37,17 +37,18 @@ add_env_variables() {
 
   # Map variables to .env file, add delimenters in case of space separated values
   echo "$ENV_VARIABLES" | jq -c -r 'to_entries | .[] | if (.value | test("\\s")) then "\(.key)=¦\(.value)¦" else "\(.key)=\(.value)" end' >> "$TMP_FILE"
-  echo "-----------------------------"
-  cat "$TMP_FILE"
-  # Add backslash before double quotes and quotes
-  sed -i 's/\"/\\\"/g' "$TMP_FILE"
-  sed -i "s/'/\\\'/g" "$TMP_FILE"
-  echo "-----------------------------"
-  cat "$TMP_FILE"
-  # Replace delimeters with double quotes
-  sed -i "s/¦/\'/g" "$TMP_FILE"
-  echo "-----------------------------"
-  cat "$TMP_FILE"
+  # echo "$ENV_VARIABLES" | jq -c -r 'to_entries | .[] | if (.value | test("\\s")) then "\(.key)=¦\(.value)¦" else "\(.key)=\(.value)" end' >> "$TMP_FILE"
+  # echo "-----------------------------"
+  # cat "$TMP_FILE"
+  # # Add backslash before double quotes and quotes
+  # sed -i 's/\"/\\\"/g' "$TMP_FILE"
+  # sed -i "s/'/\\\'/g" "$TMP_FILE"
+  # echo "-----------------------------"
+  # cat "$TMP_FILE"
+  # # Replace delimeters with quotes
+  # sed -i "s/¦/\'/g" "$TMP_FILE"
+  # echo "-----------------------------"
+  # cat "$TMP_FILE"
   
   cat "$TMP_FILE" >> "$OUTPUT_FILE"
   rm "$TMP_FILE"
