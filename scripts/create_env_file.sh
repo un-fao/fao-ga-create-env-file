@@ -45,7 +45,7 @@ add_env_variables() {
   echo "-----------------------------"
   cat "$TMP_FILE"
   # Replace delimeters with double quotes
-  sed -i 's/¦/\"/g' "$TMP_FILE"
+  sed -i "s/¦/\'/g" "$TMP_FILE"
   echo "-----------------------------"
   cat "$TMP_FILE"
   
