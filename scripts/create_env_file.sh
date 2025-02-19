@@ -28,23 +28,23 @@ add_env_variables() {
   local ENV_VARIABLES="$1"
   local NAME="$2"
   local OUTPUT_FILE="$3"
-  local TMP_FILE="tmp.env"
 
   if [ -z ${ENV_VARIABLES+x} ] || [ "$ENV_VARIABLES" = "null" ]; then
     echo "No $NAME where found."
     return
   fi
 
-  # Map variables to .env file, add delimenters in case of space separated values
-  echo "$ENV_VARIABLES" | jq -c -r 'to_entries | .[] | if (.value | test("\\s")) then "\(.key)=¦\(.value)¦" else "\(.key)=\(.value)" end' >> "$TMP_FILE"
-  # Add backslash before double quotes and quotes
-  sed -i 's/\"/\\\"/g' "$TMP_FILE"
-  sed -i "s/'/\\\'/g" "$TMP_FILE"
-  # Replace delimeters with double quotes
-  sed -i 's/¦/\"/g' "$TMP_FILE"
+  # Map variables to .env file
+  while IFS='=' read -r key value; do
+    if [[ "$value" == *'"'* ]]; then
+      echo "export $key='$value'" >> "$OUTPUT_FILE"
+    elif [[ "$value" == *"'"* ]]; then
+      echo "export $key=\"$value\"" >> "$OUTPUT_FILE"
+    else
+      echo "export $key=\"$value\"" >> "$OUTPUT_FILE"
+    fi
+  done < <(echo "$ENV_VARIABLES" | jq -r 'to_entries | .[] | "\(.key)=\(.value)"')
 
-  cat "$TMP_FILE" >> "$OUTPUT_FILE"
-  rm "$TMP_FILE"
   echo "$NAME added to $OUTPUT_FILE!"
 }
 
