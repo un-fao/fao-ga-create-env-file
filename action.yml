@@ -27,5 +27,5 @@ runs:
       OUTPUT_NAME: '${{ inputs.output-name }}'
     shell: sh
     run: |
-      sudo apt-get install -y jq
+      apt-get install -y jq
       $GITHUB_ACTION_PATH/scripts/create_env_file.sh
