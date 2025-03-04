@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -eE -o functrace
+set -e
 
 fatal() {
   local LINE="$1"
@@ -35,7 +35,7 @@ add_env_variables() {
   fi
 
   # Map variables to .env file
-  while IFS='=' read -r key value; do
+  echo "$ENV_VARIABLES" | jq -r 'to_entries | .[] | "\(.key)=\(.value)"' | while IFS='=' read -r key value; do
     if [[ "$value" == *'"'* ]]; then
       echo "export $key='$value'" >> "$OUTPUT_FILE"
     elif [[ "$value" == *"'"* ]]; then
@@ -43,7 +43,7 @@ add_env_variables() {
     else
       echo "export $key=\"$value\"" >> "$OUTPUT_FILE"
     fi
-  done < <(echo "$ENV_VARIABLES" | jq -r 'to_entries | .[] | "\(.key)=\(.value)"')
+  done
 
   echo "$NAME added to $OUTPUT_FILE!"
 }
