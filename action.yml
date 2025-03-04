@@ -25,6 +25,6 @@ runs:
       VARIABLES: '${{ inputs.variables }}'
       SECRETS: '${{ inputs.secrets }}'
       OUTPUT_NAME: '${{ inputs.output-name }}'
-    shell: bash
+    shell: sh
     run: |
       $GITHUB_ACTION_PATH/scripts/create_env_file.sh
