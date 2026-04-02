@@ -2,7 +2,7 @@
 
 ## Overview
 
-`create-env-file` is a GitHub Actions composite action that generates a `.env` file from a JSON extraction of GitHub environment variables.
+`create-env-file` is a GitHub Actions composite action that generates a `.env` file from a JSON extraction of GitHub environment variables. 
 
 ## Features
 
