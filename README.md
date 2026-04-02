@@ -10,7 +10,7 @@
 - Handles spaces within variable values by encapsulating them in double quotes.
 - Escapes special characters (quotes and double quotes) to ensure correct formatting.
 
-## Usage
+## Usage 
 
 To use this action in your workflow, add the following step:
 
